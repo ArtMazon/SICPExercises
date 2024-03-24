@@ -20,7 +20,7 @@
          ((< a b ) b)
          (else -1))
    (+ a 1))
-
+(+ 1 2 3)
 
 (/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))
    (* 3 (- 6 2) (- 2 7)))
@@ -39,7 +39,7 @@
 
 (define (avarage x y) (/ (+ x y) 2))
 
-(define (isgoodenough-improved? prev-guess current-guess)
+(define (isgoodenough-improved? prev-guess current-guess) ; Exercise 1.7
   (< (abs (- prev-guess current-guess)) 0.0001))
 
 (define (improve guess x)
@@ -57,12 +57,22 @@
 
 (sqrt (square 100))
 
+(define (improve-cubic guess x)
+  (/ (+ (/ x (square guess)) (* 2 guess)) 3)) 
 
 
-(define (cube-iter guess x)
-  (if (isgoodenough-improved? guess (improve guess))
-      (improve guess)
-      (cube-iter (improve guess) x)))
+(define (cube-iter guess x) ; Exercise 1.8
+  (if (isgoodenough-improved? guess (improve-cubic guess x))
+      (improve-cubic guess x)
+      (cube-iter (improve-cubic guess x) x)))
+
+(define (cubic-root x)
+  (cube-iter 1.0 x))
+
+(define (cube x) (* x x x))
+
+
+(cubic-root (/ 1 (cube 10000)))
 
 
 
